@@ -1,0 +1,266 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HTTP 测试",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/method": {
+      "get": {
+        "tags": ["Method"],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": ["Method"],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": ["Method"],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Method"],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Method"],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/basic-auth/{user}/{passwd}": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "基本认证",
+        "parameters": [{
+          "name": "user",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }, {
+          "name": "passwd",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/status/{code}": {
+      "get": {
+        "tags": ["Status"],
+        "parameters": [{
+          "$ref": "#/components/parameters/code"
+        }],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": ["Status"],
+        "parameters": [{
+          "$ref": "#/components/parameters/code"
+        }],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": ["Status"],
+        "parameters": [{
+          "$ref": "#/components/parameters/code"
+        }],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Status"],
+        "parameters": [{
+          "$ref": "#/components/parameters/code"
+        }],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Status"],
+        "parameters": [{
+          "$ref": "#/components/parameters/code"
+        }],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/base64/{value}": {
+      "get": {
+        "tags": ["Dynamic data"],
+        "parameters": [{
+          "name": "value",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/bytes/{n}": {
+      "get": {
+        "tags": ["Dynamic data"],
+        "parameters": [{
+          "name": "n",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/delay/{delay}": {
+      "get": {
+        "tags": ["Dynamic data"],
+        "parameters": [{
+          "$ref": "#/components/parameters/delay"
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": ["Dynamic data"],
+        "parameters": [{
+          "$ref": "#/components/parameters/delay"
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": ["Dynamic data"],
+        "parameters": [{
+          "$ref": "#/components/parameters/delay"
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Dynamic data"],
+        "parameters": [{
+          "$ref": "#/components/parameters/delay"
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Dynamic data"],
+        "parameters": [{
+          "$ref": "#/components/parameters/delay"
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "tags": [{
+    "name": "Method",
+    "description": "请求方法"
+  }, {
+    "name": "Auth",
+    "description": "验证"
+  }, {
+    "name": "Status",
+    "description": "状态码"
+  }, {
+    "name": "Dynamic data",
+    "description": "动态数据"
+  }],
+  "components": {
+    "parameters": {
+      "code": {
+        "name": "code",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "minimum": 200,
+          "maximum": 599
+        }
+      },
+      "delay": {
+        "name": "delay",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        }
+      }
+    }
+  }
+}
