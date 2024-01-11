@@ -73,6 +73,19 @@
         }
       }
     },
+    "/bearer": {
+      "get": {
+        "tags": ["Auth"],
+        "security": [{
+          "bearer": []
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/status/{code}": {
       "get": {
         "tags": ["Status"],
@@ -123,6 +136,39 @@
         "parameters": [{
           "$ref": "#/components/parameters/code"
         }],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/cookie": {
+      "get": {
+        "tags": ["Cookie"],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": ["Cookie"],
+        "parameters": [{
+          "name": "value",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Cookie"],
         "responses": {
           "default": {
             "description": ""
@@ -224,6 +270,35 @@
           }
         }
       }
+    },
+    "/uuid": {
+      "get": {
+        "tags": ["Dynamic data"],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/file/{type}": {
+      "get": {
+        "tags": ["File"],
+        "parameters": [{
+          "name": "type",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": ["text", "xml", "svg", "png", "jpg"]
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
     }
   },
   "tags": [{
@@ -236,8 +311,13 @@
     "name": "Status",
     "description": "状态码"
   }, {
+    "name": "Cookie"
+  }, {
     "name": "Dynamic data",
     "description": "动态数据"
+  }, {
+    "name": "File",
+    "description": "文件"
   }],
   "components": {
     "parameters": {
@@ -260,6 +340,12 @@
           "minimum": 0,
           "maximum": 10
         }
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
       }
     }
   }
