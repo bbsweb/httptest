@@ -2,15 +2,33 @@
   "openapi": "3.1.0",
   "info": {
     "title": "HTTP 测试",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "description": "一个简单的 HTTP 测试接口\n\n快速部署：[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbbsweb%2Fhttptest&project-name=httptest&repository-name=httptest)",
+    "contact": {
+      "email": "support@bbsweb.xyz"
+    }
   },
+  "externalDocs": {
+    "description": "Github 源码",
+    "url": "https://github.com/bbsweb/httptest"
+  },
+  "servers": [{
+    "url": "/http"
+  }],
   "paths": {
     "/method": {
       "get": {
         "tags": ["Method"],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Method"
+                }
+              }
+            }
           }
         }
       },
@@ -18,7 +36,14 @@
         "tags": ["Method"],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Method"
+                }
+              }
+            }
           }
         }
       },
@@ -26,7 +51,14 @@
         "tags": ["Method"],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Method"
+                }
+              }
+            }
           }
         }
       },
@@ -34,7 +66,14 @@
         "tags": ["Method"],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Method"
+                }
+              }
+            }
           }
         }
       },
@@ -42,7 +81,14 @@
         "tags": ["Method"],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Method"
+                }
+              }
+            }
           }
         }
       }
@@ -53,6 +99,7 @@
         "summary": "基本认证",
         "parameters": [{
           "name": "user",
+          "description": "用户名",
           "in": "path",
           "required": true,
           "schema": {
@@ -60,6 +107,7 @@
           }
         }, {
           "name": "passwd",
+          "description": "密码",
           "in": "path",
           "required": true,
           "schema": {
@@ -68,6 +116,21 @@
         }],
         "responses": {
           "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
             "description": ""
           }
         }
@@ -81,6 +144,21 @@
         }],
         "responses": {
           "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
             "description": ""
           }
         }
@@ -146,14 +224,23 @@
     "/cookie": {
       "get": {
         "tags": ["Cookie"],
+        "summary": "查看 Cookie",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       },
       "post": {
         "tags": ["Cookie"],
+        "summary": "设置 Cookie",
         "parameters": [{
           "name": "value",
           "in": "query",
@@ -162,23 +249,32 @@
           }
         }],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       },
       "delete": {
         "tags": ["Cookie"],
+        "summary": "删除 Cookie",
         "responses": {
-          "default": {
+          "200": {
             "description": ""
           }
         }
       }
     },
-    "/base64/{value}": {
+    "/base64/encode/{value}": {
       "get": {
         "tags": ["Dynamic data"],
+        "summary": "Base64 编码",
         "parameters": [{
           "name": "value",
           "in": "path",
@@ -194,11 +290,84 @@
         }
       }
     },
+    "/base64/encode": {
+      "post": {
+        "tags": ["Dynamic data"],
+        "summary": "Base64 编码",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": ["value"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/base64/decode/{value}": {
+      "get": {
+        "tags": ["Dynamic data"],
+        "summary": "Base64 解码",
+        "parameters": [{
+          "name": "value",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/base64/decode": {
+      "post": {
+        "tags": ["Dynamic data"],
+        "summary": "Base64 解码",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": ["value"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/bytes/{n}": {
       "get": {
         "tags": ["Dynamic data"],
+        "summary": "返回 n 个字节",
         "parameters": [{
           "name": "n",
+          "description": "字节数",
           "in": "path",
           "required": true,
           "schema": {
@@ -222,7 +391,14 @@
         }],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Method"
+                }
+              }
+            }
           }
         }
       },
@@ -233,7 +409,14 @@
         }],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Method"
+                }
+              }
+            }
           }
         }
       },
@@ -244,7 +427,14 @@
         }],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Method"
+                }
+              }
+            }
           }
         }
       },
@@ -255,7 +445,14 @@
         }],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Method"
+                }
+              }
+            }
           }
         }
       },
@@ -266,7 +463,14 @@
         }],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Method"
+                }
+              }
+            }
           }
         }
       }
@@ -284,13 +488,14 @@
     "/file/{type}": {
       "get": {
         "tags": ["File"],
+        "summary": "获取各种类型的文件",
         "parameters": [{
           "name": "type",
           "in": "path",
           "required": true,
           "schema": {
             "type": "string",
-            "enum": ["text", "xml", "svg", "png", "jpg"]
+            "enum": ["text", "xml", "svg", "png", "jpg", "webp"]
           }
         }],
         "responses": {
@@ -323,6 +528,7 @@
     "parameters": {
       "code": {
         "name": "code",
+        "description": "状态码 (200-599)",
         "in": "path",
         "required": true,
         "schema": {
@@ -333,12 +539,41 @@
       },
       "delay": {
         "name": "delay",
+        "description": "延迟秒数 (1-10)",
         "in": "path",
         "required": true,
         "schema": {
           "type": "integer",
           "minimum": 0,
           "maximum": 10
+        }
+      }
+    },
+    "schemas": {
+      "Method": {
+        "type": "object",
+        "properties": {
+          "args": {
+            "type": "object"
+          },
+          "headers": {
+            "type": "object"
+          },
+          "file": {
+            "type": "object"
+          },
+          "form": {
+            "type": "object"
+          },
+          "json": {
+            "type": "object"
+          },
+          "origin": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
         }
       }
     },

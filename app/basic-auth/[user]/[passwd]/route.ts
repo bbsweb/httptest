@@ -5,7 +5,7 @@ export const GET = (req: Request, {params}: {params: {user: string, passwd: stri
 
   if (authHeader) {
     const auth = Buffer.from(authHeader.split(' ')[1], 'base64').toString()
-    if (`${params.user}:${params.passwd}` === auth) return Response.json({})
+    if (`${params.user}:${params.passwd}` === auth) return Response.json({user: params.user})
   }
 
   return new Response(null, {
